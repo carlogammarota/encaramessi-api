@@ -28,5 +28,5 @@
       "passwordField": "password"
     }
   },
-  "mongodb": "mongodb+srv://cg420:3548630543@cluster0.2xunh.mongodb.net/encara-messi"
+  "mongodb": "mongodb+srv://cg420:3548630543@cluster0.2xunh.mongodb.net/encara-messi-1"
 }
