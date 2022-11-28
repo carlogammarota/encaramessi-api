@@ -40,8 +40,9 @@ app.use('/', express.static(app.get('public')));
 app.configure(express.rest());
 app.configure(socketio(
   {
-    // origins: ["http://localhost:3000"],
-    origins: ["https://encaramessi.yendo.site"]
+    // origins: ["+"],
+    origins: ["http://localhost:3000", "https://encaramessi.yendo.site"],
+    // origins: ["https://encaramessi.yendo.site"]
   }
 //   {
 //   path: '/ws/'
