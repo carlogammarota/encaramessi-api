@@ -1,15 +1,90 @@
 module.exports = function(app) {
   if(typeof app.channel !== 'function') {
     // If no real-time functionality has been configured just return
-    return;
+    // return;
   }
 
-  app.on('connection', connection => {
-    // On a new real-time connection, add it to the anonymous channel
-    app.channel('anonymous').join(connection);
+  // app.configure(socketio(function(io) {
+  //   io.on('connection', function(socket) {
+  //     console.log("NEW USER CONECTED")
+  //     socket.emit('news', { text: 'A client connected!' });
+  //     socket.on('my other event', function (data) {
+  //       console.log(data);
+  //     });
+  //   });
+  //   io.on('disconnect', (reason) => {
+  //     // Show offline message
+  //     console.log("disconnect")
+  //   });
+    
+  //   // Registering Socket.io middleware
+  //   io.use(function (socket, next) {
+  //     // Exposing a request property to services and hooks
+  //     socket.feathers.referrer = socket.request.referrer;
+  //     next();
+  //   });
+  // }));
+  let usuariosConectados = 0;
+
+  app.on("connection", (connection) => {
+    const { user } = connection;
+
+    // socket.join("some room");
+    // app.channel('anonymous').join(connection);
+    // app.channel('anonymous').emit("users-only", 30);
+    // console.log("app io", app.io)
+    
+    // app.channel.to("anonymous").emit("some event");
+    console.log("Nuevo usuario conectado")
+    usuariosConectados++;
+    app.io.emit("users-only", usuariosConectados)
+    console.log("Usuarios Conectados: ", usuariosConectados)
+    // console.log("app", app)
+    // app.socketio.on('message', (data) => {
+    //   console.log(data);
+    // });
+
+    // app.service('messages').on("find", function (data) {
+    //   console.log(data);
+    // });
+    
   });
 
+  
+  // app.on('connection', function(socket) {
+    
+  //   // console.log("Nuevo usuario conectado", socket)
+  //   // socket.socket.emit('news', { text: 'A client connected!' });
+  //   // socket.on('my other event', function (data) {
+  //   //   console.log(data);
+  //   // });
+  //   app.channel('anonymous').join(socket);
+  //   socket.to("anonymous").emit("some event");
+  //   console.log("Nuevo usuario conectado")
+  //   usuariosConectados++;
+  // });
+
+  // app.on('connection', (io) => {
+  //   // On a new real-time connection, add it to the anonymous channel
+  //   console.log("Nuevo usuario conectado")
+  //   usuariosConectados++;
+  //   app.channel('anonymous').join(io);
+  //   console.log("Usuarios Conectados: ", usuariosConectados)
+  //   io.emit('users-only', usuariosConectados);
+   
+  // });
+  app.on('disconnect', (reason) => {
+    usuariosConectados--;
+     // Show offline message
+     app.io.emit("users-only", usuariosConectados)
+     console.log("Usuario desconectado")
+     console.log("Usuarios Conectados: ", usuariosConectados)
+    //  app.emit('users-only', usuariosConectados);
+   });
+
   app.on('login', (authResult, { connection }) => {
+    // console.log("Nuevo usuario conectado", connection)
+    // usuariosConectados++;
     // connection can be undefined if there is no
     // real-time connection, e.g. when logging in via REST
     if(connection) {

@@ -38,7 +38,44 @@ app.use('/', express.static(app.get('public')));
 
 // Set up Plugins and providers
 app.configure(express.rest());
-app.configure(socketio());
+app.configure(socketio(
+  {
+    origins: ["http://localhost:3000"]
+  }
+//   {
+//   path: '/ws/'
+// }, function(io) {
+//   // Do something here
+//   // This function is optional
+// }
+));
+
+// app.io.on('disconnect', (reason) => {
+//   // Show offline message
+//   console.log("disconnect")
+// });
+
+//socket config
+// app.configure(socketio(function(io) {
+//   io.on('connection', function(socket) {
+//     console.log("NEW USER CONECTED")
+//     socket.emit('news', { text: 'A client connected!' });
+//     socket.on('my other event', function (data) {
+//       console.log(data);
+//     });
+//   });
+//   io.on('disconnect', (reason) => {
+//     // Show offline message
+//     console.log("disconnect")
+//   });
+  
+//   // Registering Socket.io middleware
+//   io.use(function (socket, next) {
+//     // Exposing a request property to services and hooks
+//     socket.feathers.referrer = socket.request.referrer;
+//     next();
+//   });
+// }));
 
 app.configure(mongoose);
 
