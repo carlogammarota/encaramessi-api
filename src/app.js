@@ -46,6 +46,9 @@ app.configure(socketio(
 
     allowEIO3: true,
     origins: ["http://localhost:3000", "https://encaramessi.yendo.site"],
+    cors: {
+      origin: '*',
+    }
     // origins: ["ws://localhost:3000"]
   }
 //   {
