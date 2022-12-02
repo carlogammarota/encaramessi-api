@@ -41,8 +41,9 @@ app.configure(express.rest());
 app.configure(socketio(
   {
     // origins: ["+"],
+    allowEIO3: true,
     origins: ["http://localhost:3000", "https://encaramessi.yendo.site"],
-    // origins: ["https://encaramessi.yendo.site"]
+    // origins: ["ws://localhost:3000"]
   }
 //   {
 //   path: '/ws/'
