@@ -36,11 +36,14 @@ app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
 // Host the public folder
 app.use('/', express.static(app.get('public')));
 
+var allowedOrigins = "http://localhost:* http://127.0.0.1:*";
 // Set up Plugins and providers
 app.configure(express.rest());
 app.configure(socketio(
   {
     // origins: ["+"],
+    allowedOrigins: "http://localhost:* https://encaramessi.yendo.site:* https://encaramessi.yendo.site",
+
     allowEIO3: true,
     origins: ["http://localhost:3000", "https://encaramessi.yendo.site"],
     // origins: ["ws://localhost:3000"]
