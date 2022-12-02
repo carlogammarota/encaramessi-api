@@ -40,14 +40,29 @@ var allowedOrigins = "http://localhost:* http://127.0.0.1:*";
 // Set up Plugins and providers
 app.configure(express.rest());
 app.configure(socketio(
+  // handlePreflightRequest = (req, res) => {
+  //   const headers = {
+  //       "Access-Control-Allow-Headers": "Content-Type, Authorization",
+  //       "Access-Control-Allow-Origin": req.headers.origin, //or the specific origin you want to give access to,
+  //       "Access-Control-Allow-Credentials": true
+  //     };
+  //     res.writeHead(200, headers);
+  //     res.end();
+  //   },
   {
     // origins: ["+"],
-    allowedOrigins: "http://localhost:* https://encaramessi.yendo.site:* https://encaramessi.yendo.site",
+    // allowedOrigins: "http://localhost:* https://encaramessi.yendo.site:* https://encaramessi.yendo.site",
 
     allowEIO3: true,
-    origins: ["http://localhost:3000", "https://encaramessi.yendo.site"],
+    // origins: ["http://localhost:3000"],
+    origins: ["https://encaramessi.yendo.site"],
+    withCredentials: true,
     cors: {
-      origin: '*',
+      // origin: "http://localhost:3030",
+      // methods: ["GET", "POST"],
+      // allowedHeaders: ["my-custom-header"],
+      // credentials: true,
+      // withCredentials: true
     }
     // origins: ["ws://localhost:3000"]
   }
